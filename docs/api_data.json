@@ -3,6 +3,67 @@
     "type": "get",
     "url": "/authentication/refresh_token",
     "title": "Refresh token request",
+    "version": "1.0.1",
+    "name": "GetRefreshToken",
+    "group": "Authentication",
+    "permission": [
+      {
+        "name": "standard"
+      }
+    ],
+    "description": "<p>Returns a new token valid for 24 additional hours.</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "x-access-token",
+            "description": "<p>User unique access-key</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "x-access-token",
+            "description": "<p>The user's token to be used in all request for identification.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "token_not_valid",
+            "description": "<p>Error 401: Access token not valid.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error examples:",
+          "content": "HTTP/1.1 401 Unauthorized\n{\n  \"error\": \"token_not_valid\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./Doc.js",
+    "groupTitle": "Authentication"
+  },
+  {
+    "type": "get",
+    "url": "/authentication/refresh_token",
+    "title": "Refresh token request",
     "version": "1.0.0",
     "name": "GetRefreshToken",
     "group": "Authentication",
@@ -64,6 +125,86 @@
     "type": "post",
     "url": "/authentication/login",
     "title": "Connection request",
+    "version": "1.0.1",
+    "name": "PostUserLogin",
+    "group": "Authentication",
+    "permission": [
+      {
+        "name": "standard"
+      }
+    ],
+    "description": "<p>Requests connection authorization. The token returned is valid during 24 hours. If the Lidar is restarted , this request has to be executed again to ask for a new token.</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>Name of the user.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "password",
+            "description": "<p>Password of the user.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "x-access-token",
+            "description": "<p>The user's token to be used in all request for identification.</p>"
+          }
+        ]
+      }
+    },
+    "filename": "./Doc.js",
+    "groupTitle": "Authentication",
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "no_access_right",
+            "description": "<p>Error 403: Only standard users or more are allowed to connect.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "wrong_user_name_or_pwd",
+            "description": "<p>Error 401: Client's connection refused due to wrong credentials.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "account_inactive_for_too_long",
+            "description": "<p>Error 401: Client's connection refused because account is inactive.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error examples:",
+          "content": "    HTTP/1.1 403 Forbidden\n    {\n      \"error\": \"no_access_right\"\n    }\nor\n    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"wrong_user_name_or_pwd\"\n    }\n    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"account_inactive_for_too_long\"\n    }",
+          "type": "json"
+        }
+      ]
+    }
+  },
+  {
+    "type": "post",
+    "url": "/authentication/login",
+    "title": "Connection request",
     "version": "1.0.0",
     "name": "PostUserLogin",
     "group": "Authentication",
@@ -115,7 +256,7 @@
             "group": "Error 4xx",
             "optional": false,
             "field": "no_access_right",
-            "description": "<p>Error 403: Only expert users or more are allowed to connect.</p>"
+            "description": "<p>Error 403: Only standard users or more are allowed to connect.</p>"
           },
           {
             "group": "Error 4xx",
@@ -164,9 +305,105 @@
     "url": "",
     "version": "0.0.0",
     "filename": "./apidoc/main.js",
-    "group": "C__Users_jschuhmacher_Desktop_api_311_apidoc_main_js",
-    "groupTitle": "C__Users_jschuhmacher_Desktop_api_311_apidoc_main_js",
+    "group": "C__Users_JUSCH_Desktop_api_311___Copy_apidoc_main_js",
+    "groupTitle": "C__Users_JUSCH_Desktop_api_311___Copy_apidoc_main_js",
     "name": ""
+  },
+  {
+    "type": "get",
+    "url": "/configuration/lidar",
+    "title": "Get Lidar information",
+    "version": "1.0.1",
+    "name": "GetLidarInfo",
+    "group": "Configuration",
+    "permission": [
+      {
+        "name": "standard"
+      }
+    ],
+    "description": "<p>Returns  information about the Lidar</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "x-access-token",
+            "description": "<p>User unique access-key</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "instrument_name",
+            "description": "<p>serial number of the Lidar</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "String",
+            "optional": false,
+            "field": "history",
+            "description": "<p>Lidar server version</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "latitude",
+            "description": "<p>Lidar latitude</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "longitude",
+            "description": "<p>Lidar longitude</p>"
+          },
+          {
+            "group": "Success 200",
+            "type": "Number",
+            "optional": false,
+            "field": "altitude",
+            "description": "<p>Lidar altitude</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:  ",
+          "content": "{\"instrument_name\":\"WLS200s-005\",\n\"history\":\"Windcube Lidar server 3.1.1\",\n\"latitude\":22.321234,\n\"longitude\":124.366982,\n\"altitude\":null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "token_not_valid",
+            "description": "<p>Error 401: Access token not valid.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error examples:",
+          "content": "HTTP/1.1 401 Unauthorized\n{\n  \"error\": \"token_not_valid\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./Doc.js",
+    "groupTitle": "Configuration"
   },
   {
     "type": "get",
@@ -2157,7 +2394,12 @@
         "type": "json"
       }
     ],
-    "description": "<p>Sends a command to the Lidar. Contrary to the GUI behavior be aware that if a scan has been updated the command start_acq will still run the older version of the scan. If you want to play the new ones, update your programming and/or your composites with the /control/program request.* @apiPermission expert</p>",
+    "description": "<p>Sends a command to the Lidar. Contrary to the GUI behavior be aware that if a scan has been updated the command start_acq will still run the older version of the scan. If you want to play the new ones, update your programming and/or your composites with the /control/program request.</p>",
+    "permission": [
+      {
+        "name": "expert"
+      }
+    ],
     "header": {
       "fields": {
         "Header": [
@@ -2516,6 +2758,101 @@
     "type": "get",
     "url": "/data/netcdf_file/:sweep_index/:groups",
     "title": "Get NetCDF file from a given sweep",
+    "version": "1.0.1",
+    "name": "GetNetCDFFile",
+    "group": "Data",
+    "permission": [
+      {
+        "name": "standard"
+      }
+    ],
+    "examples": [
+      {
+        "title": "URL examples:",
+        "content": "http://192.168.3.5/lidar_api/v1/data/netcdf_file/123/radial_wind_data,wind_reconstruction_data",
+        "type": "json"
+      }
+    ],
+    "description": "<p>Retrieves NetCDF file from a given sweep index. To get NetCDF files between two dates , use the request to get sweep index history then iterate on the id retrieved. Cf User manual for more details about NetCDF</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "x-access-token",
+            "description": "<p>User unique access-key</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<hr>",
+            "optional": false,
+            "field": "URL_PARAMETERS:",
+            "description": "<hr>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Number",
+            "optional": false,
+            "field": "sweep_index",
+            "description": "<p>Identification number of the sweep</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "allowedValues": [
+              "\"radial_wind_data\"",
+              "\"wind_reconstruction_data\"",
+              "\"radial_beta_data\"",
+              "\"radial_absolute_beta_data\"",
+              "\"atmospherical_structure_data\""
+            ],
+            "optional": false,
+            "field": "group",
+            "description": "<p>Specified data group to retrieve. Refer to introduction for more details.</p>"
+          }
+        ]
+      }
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "token_not_valid",
+            "description": "<p>Error 401: Access token not valid.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "parameter_not_valid",
+            "description": "<p>Error 400: One or several parameters are not valid.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error examples:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"token_not_valid\"\n    }\n     HTTP/1.1 400 Bad Request\n    {\n      \"error\": \"parameter_not_valid\",\n\t\t \"explanation\": \"'sweep_index' has not the right format. Should be an integer greater than or equal to 1\"\n    }\n     HTTP/1.1 400 Bad Request\n    {\n      \"error\": \"parameter_not_valid\",\n\t\t \"explanation\": \"Unknown given data group 'WrongGroup'\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./Doc.js",
+    "groupTitle": "Data"
+  },
+  {
+    "type": "get",
+    "url": "/data/netcdf_file/:sweep_index/:groups",
+    "title": "Get NetCDF file from a given sweep",
     "version": "1.0.0",
     "name": "GetNetCDFFile",
     "group": "Data",
@@ -2834,6 +3171,114 @@
         {
           "title": "Error examples:",
           "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"token_not_valid\"\n    }\n     HTTP/1.1 400 Bad Request\n    {\n\t\t\"error\": \"parameter_not_valid\",\n\t\t\"explanation\": \"Unknown given field: {FIELD} for group {group}\"\n    }",
+          "type": "json"
+        }
+      ]
+    },
+    "filename": "./Doc.js",
+    "groupTitle": "Data"
+  },
+  {
+    "type": "get",
+    "url": "/data/sweep_list/:start_time/:end_time",
+    "title": "Get sweep index history",
+    "version": "1.0.1",
+    "name": "GetSweepList",
+    "group": "Data",
+    "permission": [
+      {
+        "name": "standard"
+      }
+    ],
+    "examples": [
+      {
+        "title": "URL examples:",
+        "content": "http://192.168.3.5/lidar_api/v1/data/sweep_list/2018-05-11T02:12:35Z/2018-05-11T12:12:35Z",
+        "type": "json"
+      }
+    ],
+    "description": "<p>Returns a list of sweep index between two dates</p>",
+    "header": {
+      "fields": {
+        "Header": [
+          {
+            "group": "Header",
+            "type": "String",
+            "optional": false,
+            "field": "x-access-token",
+            "description": "<p>User unique access-key</p>"
+          }
+        ]
+      }
+    },
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<hr>",
+            "optional": false,
+            "field": "URL_PARAMETERS:",
+            "description": "<hr>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "start_time",
+            "description": "<p>UTC start time of the interval following ISO8601 format ( example 2018-05-11T02:12:35Z)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "end_time",
+            "description": "<p>UTC end time of the interval following ISO8601 format ( example 2018-05-11T02:12:35Z)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "fields": {
+        "Success 200": [
+          {
+            "group": "Success 200",
+            "type": "Number[]",
+            "optional": false,
+            "field": "-",
+            "description": "<p>List of sweep executed between start_time and end_time</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Success-Response:  ",
+          "content": "[190,191,192,193,194]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "token_not_valid",
+            "description": "<p>Error 401: Access token not valid.</p>"
+          },
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "parameter_not_valid",
+            "description": "<p>Error 400: One or several parameters are not valid.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error examples:",
+          "content": "    HTTP/1.1 401 Unauthorized\n    {\n      \"error\": \"token_not_valid\"\n    }\n     HTTP/1.1 400 Bad Request\n    {\n\t\t\"error\": \"parameter_not_valid\",\n\t\t\"explanation\": \"'start_time' not valid\"\n    }",
           "type": "json"
         }
       ]
