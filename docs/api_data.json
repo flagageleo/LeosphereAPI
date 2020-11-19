@@ -1201,7 +1201,7 @@
             "type": "String",
             "optional": false,
             "field": "domains",
-            "description": "<p>Domains on which to apply the certificate. Can be Ip address , or domain names. Should be separate by comma.</p>"
+            "description": "<p>Domains on which to apply the certificate. Can be Ip address , or domain names. Should be separate by coma.</p>"
           },
           {
             "group": "Parameter",
